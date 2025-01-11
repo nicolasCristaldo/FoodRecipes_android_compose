@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeScreen
+import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
 
 @Composable
@@ -24,7 +24,7 @@ fun FoodRecipesNavHost(
         modifier = modifier
     ) {
         composable(route = "home") {
-            HomeScreen(
+            HomeStateHandler(
                 viewModel = viewModel,
                 contentPadding = contentPadding
             )

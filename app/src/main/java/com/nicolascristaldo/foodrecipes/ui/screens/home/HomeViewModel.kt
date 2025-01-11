@@ -7,10 +7,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicolascristaldo.foodrecipes.domain.GetFilterAttributesUseCase
-import com.nicolascristaldo.foodrecipes.domain.GetRandomRecipeUseCase
-import com.nicolascristaldo.foodrecipes.domain.GetRecipeByIdUseCase
 import com.nicolascristaldo.foodrecipes.domain.GetRecipesByCriteriaUseCase
 import com.nicolascristaldo.foodrecipes.domain.GetRecipesByNameUseCase
+import com.nicolascristaldo.foodrecipes.domain.model.filter.FilterAttributes
+import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -19,130 +19,71 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
-    private val getRandomRecipeUseCase: GetRandomRecipeUseCase,
     private val getRecipesByNameUseCase: GetRecipesByNameUseCase,
-    private val getRecipesByCriteriaUseCase: GetRecipesByCriteriaUseCase,
-    private val getFilterAttributesUseCase: GetFilterAttributesUseCase
+    private val getFilterAttributesUseCase: GetFilterAttributesUseCase,
+    private val getRecipesByCriteriaUseCase: GetRecipesByCriteriaUseCase
 ): ViewModel() {
+    private var filterAttributes: FilterAttributes? = null
 
-    // ID
-    var recipeByIdUiState: FoodRecipesUiState by mutableStateOf(FoodRecipesUiState.Loading)
-        private set
-
-    var randomRecipeUiState: FoodRecipesUiState by mutableStateOf(FoodRecipesUiState.Loading)
-        private set
-
-    var recipeByNameUiState: FoodRecipesUiState by mutableStateOf(FoodRecipesUiState.Loading)
-        private set
-
-    var recipeByCriteriaUiState: FoodRecipesUiState by mutableStateOf(FoodRecipesUiState.Loading)
-        private set
-
-    var filterAttributesUiState: FoodRecipesUiState by mutableStateOf(FoodRecipesUiState.Loading)
+    var homeUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
         private set
 
     init {
-        getRecipeById("52893")
-        getRandomRecipe()
-        getRecipeByName("Apple")
-        getRecipeByCriteria(area = null, category = "Seafood")
         getFilterAttributes()
     }
 
-    fun getRecipeById(id: String) {
+    private fun getFilterAttributes() {
         viewModelScope.launch {
-            recipeByIdUiState = FoodRecipesUiState.Loading
-            recipeByIdUiState = try {
-                FoodRecipesUiState.Success(
-                    recipeList = getRecipeByIdUseCase(id = id)
+            try {
+                filterAttributes = getFilterAttributesUseCase()
+                homeUiState = HomeUiState.Success(
+                    recipePreviewList = null,
+                    filterAttributes = filterAttributes
                 )
-            }
-            catch(e: IOException) {
-                FoodRecipesUiState.Error(internetError = true)
-            }
-            catch (e: HttpException) {
-                Log.e("API_ERROR", "HTTP Error: ${e.code()} - ${e.message()}")
-                FoodRecipesUiState.Error(httpError = true)
+            } catch (e: IOException) {
+                handleError(e)
             }
         }
     }
 
-    // RANDOM
-
-    fun getRandomRecipe() {
+    fun getRecipesByName(name: String) {
         viewModelScope.launch {
-            randomRecipeUiState = FoodRecipesUiState.Loading
-            randomRecipeUiState = try {
-                FoodRecipesUiState.Success(
-                    recipeList = getRandomRecipeUseCase()
-                )
-            }
-            catch(e: IOException) {
-                FoodRecipesUiState.Error(internetError = true)
-            }
-            catch (e: HttpException) {
-                Log.e("API_ERROR", "HTTP Error: ${e.code()} - ${e.message()}")
-                FoodRecipesUiState.Error(httpError = true)
+            updateRecipes {
+                getRecipesByNameUseCase(name = name)
             }
         }
     }
 
-    // NAME
-
-    fun getRecipeByName(name: String) {
+    fun getRecipesByCriteria(area: String?, category: String?) {
         viewModelScope.launch {
-            recipeByNameUiState = FoodRecipesUiState.Loading
-            recipeByNameUiState = try {
-                FoodRecipesUiState.Success(
-                    recipePreviewList = getRecipesByNameUseCase(name = name)
+            updateRecipes {
+                getRecipesByCriteriaUseCase(
+                    area = area,
+                    category = category
                 )
-            }
-            catch(e: IOException) {
-                FoodRecipesUiState.Error(internetError = true)
-            }
-            catch (e: HttpException) {
-                Log.e("API_ERROR", "HTTP Error: ${e.code()} - ${e.message()}")
-                FoodRecipesUiState.Error(httpError = true)
             }
         }
     }
 
-    // criteria
-
-    fun getRecipeByCriteria(area: String?, category: String?) {
-        viewModelScope.launch {
-            recipeByCriteriaUiState = FoodRecipesUiState.Loading
-            recipeByCriteriaUiState = try {
-                FoodRecipesUiState.Success(
-                    recipePreviewList = getRecipesByCriteriaUseCase(area = area, category = category)
-                )
-            }
-            catch(e: IOException) {
-                FoodRecipesUiState.Error(internetError = true)
-            }
-            catch (e: HttpException) {
-                Log.e("API_ERROR", "HTTP Error: ${e.code()} - ${e.message()}")
-                FoodRecipesUiState.Error(httpError = true)
-            }
+    private suspend fun updateRecipes(
+        getRecipes: suspend () -> RecipePreviewList
+    ) {
+        homeUiState = HomeUiState.Loading
+        try {
+            homeUiState = HomeUiState.Success(
+                recipePreviewList = getRecipes(),
+                filterAttributes = filterAttributes
+            )
+        } catch (e: IOException) {
+            handleError(e)
         }
     }
 
-    fun getFilterAttributes() {
-        viewModelScope.launch {
-            filterAttributesUiState = FoodRecipesUiState.Loading
-            filterAttributesUiState = try {
-                FoodRecipesUiState.Success(
-                    filterAttributes = getFilterAttributesUseCase()
-                )
-            }
-            catch(e: IOException) {
-                FoodRecipesUiState.Error(internetError = true)
-            }
-            catch (e: HttpException) {
-                Log.e("API_ERROR", "HTTP Error: ${e.code()} - ${e.message()}")
-                FoodRecipesUiState.Error(httpError = true)
-            }
+    private fun handleError(e: Exception) {
+        homeUiState = when (e) {
+            is IOException -> HomeUiState.Error(internetError = true)
+            is HttpException -> HomeUiState.Error(httpError = true)
+            else -> HomeUiState.Error()
         }
     }
 }
