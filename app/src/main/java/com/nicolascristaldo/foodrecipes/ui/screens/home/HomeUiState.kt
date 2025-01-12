@@ -5,8 +5,8 @@ import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 
 sealed interface HomeUiState {
     data class Success(
-        val recipePreviewList: RecipePreviewList? = null,
-        val filterAttributes: FilterAttributes? = null
+        val searchUiState: SearchUiState = SearchUiState.Success(recipePreviewList = null),
+        val filterAttributes: FilterAttributes
     ): HomeUiState
 
     data class Error(
@@ -15,4 +15,17 @@ sealed interface HomeUiState {
     ): HomeUiState
 
     data object Loading: HomeUiState
+}
+
+sealed interface SearchUiState {
+    data class Success(
+        val recipePreviewList: RecipePreviewList? = null
+    ): SearchUiState
+
+    data class Error(
+        val internetError: Boolean = false,
+        val httpError: Boolean = false
+    ): SearchUiState
+
+    data object Loading: SearchUiState
 }

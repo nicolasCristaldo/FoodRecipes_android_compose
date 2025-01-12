@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RecipeModelDataResponse(
     @SerialName("meals")
-    val recipes: List<RecipeModel>
+    val recipes: List<RecipeModel>?
 )

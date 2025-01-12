@@ -4,7 +4,7 @@ import com.nicolascristaldo.foodrecipes.data.network.model.preview.RecipeModelPr
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.RecipeList
 
 data class RecipePreviewList(
-    val recipes: List<RecipePreview>
+    val recipes: List<RecipePreview>?
 )
 
 fun RecipeModelPreviewDataResponse.toDomain(): RecipePreviewList = RecipePreviewList(
@@ -14,7 +14,7 @@ fun RecipeModelPreviewDataResponse.toDomain(): RecipePreviewList = RecipePreview
 )
 
 fun RecipeList.toPreview(): RecipePreviewList = RecipePreviewList(
-    recipes.map { recipe ->
+    recipes?.map { recipe ->
         recipe.toPreview()
     }
 )

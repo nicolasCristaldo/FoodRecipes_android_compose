@@ -3,6 +3,7 @@ package com.nicolascristaldo.foodrecipes.data
 import com.nicolascristaldo.foodrecipes.data.network.FoodRecipeApiService
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 import com.nicolascristaldo.foodrecipes.domain.model.preview.toDomain
+import com.nicolascristaldo.foodrecipes.domain.model.preview.toPreview
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.RecipeList
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.toDomain
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,8 @@ class FoodRecipeRepository @Inject constructor(
     suspend fun getRandomRecipe(): RecipeList =
         withContext(Dispatchers.IO) { service.getRandomRecipe().toDomain() }
 
-    suspend fun getRecipesByName(name: String): RecipeList =
-        withContext(Dispatchers.IO) { service.getRecipesByName(name = name).toDomain() }
+    suspend fun getRecipesByName(name: String): RecipePreviewList =
+        withContext(Dispatchers.IO) { service.getRecipesByName(name = name).toDomain().toPreview() }
 
     suspend fun getRecipesByCategory(category: String): RecipePreviewList =
         withContext(Dispatchers.IO) { service.getRecipesByCategory(category = category).toDomain() }

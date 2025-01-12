@@ -8,26 +8,37 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.nicolascristaldo.foodrecipes.ui.screens.favorites.FavoritesScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
+import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreen
 
 @Composable
 fun FoodRecipesNavHost(
-    viewModel: HomeViewModel = hiltViewModel(),
-    navController: NavHostController = rememberNavController(),
+    homeViewModel: HomeViewModel,
+    navController: NavHostController,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
-        startDestination = "home",
+        startDestination = "Home",
         modifier = modifier
     ) {
-        composable(route = "home") {
+        composable(route = "Home") {
             HomeStateHandler(
-                viewModel = viewModel,
-                contentPadding = contentPadding
+                uiState = homeViewModel.homeUiState,
+                contentPadding = contentPadding,
+                filterRecipes = homeViewModel::getRecipesByCriteria
             )
+        }
+
+        composable(route = "Random") {
+            RandomScreen()
+        }
+
+        composable(route = "Favorites") {
+            FavoritesScreen()
         }
     }
 }
