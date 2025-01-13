@@ -1,21 +1,22 @@
 package com.nicolascristaldo.foodrecipes.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.nicolascristaldo.foodrecipes.ui.screens.favorites.FavoritesScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
-import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreen
+import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
+import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomStateHandler
 
 @Composable
 fun FoodRecipesNavHost(
     homeViewModel: HomeViewModel,
+    randomScreenViewModel: RandomScreenViewModel,
     navController: NavHostController,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
@@ -28,13 +29,17 @@ fun FoodRecipesNavHost(
         composable(route = "Home") {
             HomeStateHandler(
                 uiState = homeViewModel.homeUiState,
-                contentPadding = contentPadding,
-                filterRecipes = homeViewModel::getRecipesByCriteria
+                filterRecipes = homeViewModel::getRecipesByCriteria,
+                modifier = Modifier.padding(contentPadding),
             )
         }
 
         composable(route = "Random") {
-            RandomScreen()
+            RandomStateHandler(
+                uiState = randomScreenViewModel.randomScreenUiState,
+                onClick = randomScreenViewModel::getRandomRecipe,
+                modifier = Modifier.padding(contentPadding)
+            )
         }
 
         composable(route = "Favorites") {

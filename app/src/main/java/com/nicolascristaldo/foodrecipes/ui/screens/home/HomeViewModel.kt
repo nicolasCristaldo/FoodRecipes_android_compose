@@ -10,7 +10,6 @@ import com.nicolascristaldo.foodrecipes.domain.GetRecipesByCriteriaUseCase
 import com.nicolascristaldo.foodrecipes.domain.model.filter.FilterAttributes
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getFilterAttributesUseCase: GetFilterAttributesUseCase,
     private val getRecipesByCriteriaUseCase: GetRecipesByCriteriaUseCase
-): ViewModel() {
+) : ViewModel() {
     private lateinit var filterAttributes: FilterAttributes
 
     var homeUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
@@ -39,8 +38,6 @@ class HomeViewModel @Inject constructor(
                     httpError = e is HttpException
                 )
             }
-            delay(4000)
-            getRecipesByCriteria(area = "Unknown")
         }
     }
 

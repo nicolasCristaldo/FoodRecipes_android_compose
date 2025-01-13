@@ -2,6 +2,7 @@ package com.nicolascristaldo.foodrecipes.domain
 
 import com.nicolascristaldo.foodrecipes.data.FoodRecipeRepository
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
+import com.nicolascristaldo.foodrecipes.domain.model.preview.toPreview
 import javax.inject.Inject
 
 class GetRecipesByCriteriaUseCase @Inject constructor(
@@ -13,7 +14,7 @@ class GetRecipesByCriteriaUseCase @Inject constructor(
         category: String?
     ): RecipePreviewList {
         return when {
-            name != null -> repository.getRecipesByName(name = name)
+            name != null -> repository.getRecipesByName(name = name).toPreview()
             area != null -> repository.getRecipesByArea(area = area)
             category != null -> repository.getRecipesByCategory(category = category)
             else -> RecipePreviewList(emptyList())

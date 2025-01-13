@@ -21,10 +21,12 @@ import androidx.navigation.compose.rememberNavController
 import com.nicolascristaldo.foodrecipes.data.providers.NavigationItemsProvider
 import com.nicolascristaldo.foodrecipes.ui.navigation.FoodRecipesNavHost
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
+import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 
 @Composable
 fun FoodRecipesApp(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    randomScreenViewModel: RandomScreenViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
@@ -44,6 +46,7 @@ fun FoodRecipesApp(
             FoodRecipesNavHost(
                 contentPadding = contentPadding,
                 homeViewModel = homeViewModel,
+                randomScreenViewModel = randomScreenViewModel,
                 navController = navController
             )
         }

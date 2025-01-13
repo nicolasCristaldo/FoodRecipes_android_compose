@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,24 +25,25 @@ import com.nicolascristaldo.foodrecipes.ui.components.RecipeCard
 @Composable
 fun HomeStateHandler(
     uiState: HomeUiState,
-    contentPadding: PaddingValues,
     filterRecipes: (String?, String?, String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when(uiState) {
-        is HomeUiState.Error -> {
-            Text(
-                text = "Error",
-                modifier = modifier.padding(contentPadding)
-            )
-        }
-        HomeUiState.Loading -> { CircularProgressIndicator(modifier.padding(contentPadding)) }
         is HomeUiState.Success -> {
             HomeScreen(
                 state = uiState.searchUiState,
                 filterAttributes = uiState.filterAttributes,
                 filterRecipes = filterRecipes,
-                modifier = modifier.padding(contentPadding)
+                modifier = modifier
+            )
+        }
+        HomeUiState.Loading -> {
+            CircularProgressIndicator(modifier)
+        }
+        is HomeUiState.Error -> {
+            Text(
+                text = "Error",
+                modifier = modifier
             )
         }
     }
