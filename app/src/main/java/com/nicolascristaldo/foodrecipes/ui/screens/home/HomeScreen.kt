@@ -26,6 +26,7 @@ import com.nicolascristaldo.foodrecipes.ui.components.RecipeCard
 fun HomeStateHandler(
     uiState: HomeUiState,
     filterRecipes: (String?, String?, String?) -> Unit,
+    onRecipeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when(uiState) {
@@ -34,16 +35,15 @@ fun HomeStateHandler(
                 state = uiState.searchUiState,
                 filterAttributes = uiState.filterAttributes,
                 filterRecipes = filterRecipes,
-                modifier = modifier
+                onRecipeClick = onRecipeClick
             )
         }
         HomeUiState.Loading -> {
-            CircularProgressIndicator(modifier)
+            CircularProgressIndicator()
         }
         is HomeUiState.Error -> {
             Text(
-                text = "Error",
-                modifier = modifier
+                text = "Error"
             )
         }
     }
@@ -54,6 +54,7 @@ fun HomeScreen(
     state: SearchUiState,
     filterAttributes: FilterAttributes,
     filterRecipes: (String?, String?, String?) -> Unit,
+    onRecipeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -83,7 +84,10 @@ fun HomeScreen(
         HorizontalDivider()
         when(state) {
             is SearchUiState.Success -> {
-                RecipeGrid(recipeList = state.recipePreviewList?.recipes)
+                RecipeGrid(
+                    recipeList = state.recipePreviewList?.recipes,
+                    onRecipeClick = onRecipeClick
+                )
             }
             is SearchUiState.Error -> {
                 Text(text = "Error")
@@ -152,6 +156,7 @@ fun CategoryAttributeGrid(
 @Composable
 fun RecipeGrid(
     recipeList: List<RecipePreview>?,
+    onRecipeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -159,7 +164,10 @@ fun RecipeGrid(
         contentPadding = PaddingValues(8.dp),
     ) {
         items(recipeList ?: emptyList()) { recipe ->
-            RecipeCard(recipePreview = recipe)
+            RecipeCard(
+                recipePreview = recipe,
+                onClick = onRecipeClick
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.nicolascristaldo.foodrecipes.ui
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.nicolascristaldo.foodrecipes.data.providers.NavigationItemsProvider
 import com.nicolascristaldo.foodrecipes.ui.navigation.FoodRecipesNavHost
+import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 
@@ -27,6 +29,7 @@ import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 fun FoodRecipesApp(
     homeViewModel: HomeViewModel = hiltViewModel(),
     randomScreenViewModel: RandomScreenViewModel = hiltViewModel(),
+    detailsScreenViewModel: DetailsScreenViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
@@ -44,10 +47,11 @@ fun FoodRecipesApp(
     ) { contentPadding ->
         Surface {
             FoodRecipesNavHost(
-                contentPadding = contentPadding,
                 homeViewModel = homeViewModel,
                 randomScreenViewModel = randomScreenViewModel,
-                navController = navController
+                detailsScreenViewModel = detailsScreenViewModel,
+                navController = navController,
+                modifier = Modifier.padding(contentPadding)
             )
         }
     }

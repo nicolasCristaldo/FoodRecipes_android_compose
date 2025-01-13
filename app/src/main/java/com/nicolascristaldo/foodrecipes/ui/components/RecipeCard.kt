@@ -13,9 +13,11 @@ import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
 @Composable
 fun RecipeCard(
     recipePreview: RecipePreview,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
+        onClick = { onClick(recipePreview.id) },
         modifier = modifier
     ) {
         Column(

@@ -15,24 +15,24 @@ import com.nicolascristaldo.foodrecipes.ui.components.RecipeCard
 @Composable
 fun RandomStateHandler(
     uiState: RandomScreenUiState,
-    onClick: () -> Unit,
+    onButtonClick: () -> Unit,
+    onRecipeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when(uiState) {
         is RandomScreenUiState.Success -> {
             RandomScreen(
                 recipePreview = uiState.recipePreview,
-                onClick = onClick,
-                modifier = modifier
+                onClick = onButtonClick,
+                onRecipeClick = onRecipeClick
             )
         }
         RandomScreenUiState.Loading -> {
-            CircularProgressIndicator(modifier = modifier)
+            CircularProgressIndicator()
         }
         is RandomScreenUiState.Error -> {
             Text(
-                text = "Error",
-                modifier = modifier
+                text = "Error"
             )
         }
     }
@@ -42,13 +42,17 @@ fun RandomStateHandler(
 fun RandomScreen(
     recipePreview: RecipePreview?,
     onClick: () -> Unit,
+    onRecipeClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
     ) {
         if(recipePreview != null) {
-            RecipeCard(recipePreview = recipePreview)
+            RecipeCard(
+                recipePreview = recipePreview,
+                onClick = onRecipeClick
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
         }
