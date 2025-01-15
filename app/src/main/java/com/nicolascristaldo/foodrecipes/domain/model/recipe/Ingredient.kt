@@ -4,5 +4,5 @@ data class Ingredient(
     val name: String?,
     val measure: String?
 ) {
-    fun isValidIngredient(): Boolean = name.isNullOrEmpty() && measure.isNullOrEmpty()
+    fun isValidIngredient(): Boolean = !name.isNullOrEmpty() && !measure.isNullOrEmpty()
 }

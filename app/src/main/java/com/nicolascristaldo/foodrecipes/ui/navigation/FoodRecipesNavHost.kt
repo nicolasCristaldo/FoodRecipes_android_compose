@@ -26,35 +26,35 @@ fun FoodRecipesNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavDestinations.Home.route,
+        startDestination = AppDestinations.Home.route,
         modifier = modifier
     ) {
-        composable(route = NavDestinations.Home.route) {
+        composable(route = AppDestinations.Home.route) {
             HomeStateHandler(
                 uiState = homeViewModel.homeUiState,
                 filterRecipes = homeViewModel::getRecipesByCriteria,
                 onRecipeClick = { id ->
-                    navController.navigate(NavDestinations.Details.createRoute(id))
+                    navController.navigate(AppDestinations.Details.createRoute(id))
                 }
             )
         }
 
-        composable(route = NavDestinations.Random.route) {
+        composable(route = AppDestinations.Random.route) {
             RandomStateHandler(
                 uiState = randomScreenViewModel.randomScreenUiState,
                 onButtonClick = randomScreenViewModel::getRandomRecipe,
                 onRecipeClick = { id ->
-                    navController.navigate(NavDestinations.Details.createRoute(id))
+                    navController.navigate(AppDestinations.Details.createRoute(id))
                 }
             )
         }
 
-        composable(route = NavDestinations.Favorites.route) {
+        composable(route = AppDestinations.Favorites.route) {
             FavoritesScreen()
         }
 
         composable(
-            route = NavDestinations.Details.route,
+            route = AppDestinations.Details.route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
