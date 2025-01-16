@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -46,6 +45,7 @@ fun FoodRecipesApp(
     homeViewModel: HomeViewModel = hiltViewModel(),
     randomScreenViewModel: RandomScreenViewModel = hiltViewModel(),
     detailsScreenViewModel: DetailsScreenViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel = hiltViewModel(),
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
@@ -76,6 +76,7 @@ fun FoodRecipesApp(
                 homeViewModel = homeViewModel,
                 randomScreenViewModel = randomScreenViewModel,
                 detailsScreenViewModel = detailsScreenViewModel,
+                mainViewModel = mainViewModel,
                 navController = navController,
                 modifier = Modifier.padding(contentPadding)
             )

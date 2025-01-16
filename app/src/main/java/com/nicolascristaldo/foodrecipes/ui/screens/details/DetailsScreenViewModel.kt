@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nicolascristaldo.foodrecipes.data.FoodRecipeRepository
 import com.nicolascristaldo.foodrecipes.domain.GetRecipeByIdUseCase
+import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsScreenViewModel @Inject constructor(
-    private val getRecipeByIdUseCase: GetRecipeByIdUseCase
+    private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
+    private val repository: FoodRecipeRepository
 ): ViewModel() {
     var detailsScreenUiState: DetailsScreenUiState by mutableStateOf(DetailsScreenUiState.Loading)
     private set
@@ -31,6 +34,18 @@ class DetailsScreenViewModel @Inject constructor(
                     httpError = e is HttpException
                 )
             }
+        }
+    }
+
+    fun addRecipeToFavorites(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.insertRecipe(recipe = recipe)
+        }
+    }
+
+    fun deleteRecipeFromFavorites(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.deleteRecipe(recipe = recipe)
         }
     }
 }

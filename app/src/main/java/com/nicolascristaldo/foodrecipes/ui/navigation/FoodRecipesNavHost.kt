@@ -2,6 +2,8 @@ package com.nicolascristaldo.foodrecipes.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -10,9 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenHandLer
 import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenViewModel
-import com.nicolascristaldo.foodrecipes.ui.screens.favorites.FavoritesScreen
+import com.nicolascristaldo.foodrecipes.ui.MainViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
+import com.nicolascristaldo.foodrecipes.ui.screens.home.RecipeGrid
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomStateHandler
 
@@ -21,9 +24,12 @@ fun FoodRecipesNavHost(
     homeViewModel: HomeViewModel,
     randomScreenViewModel: RandomScreenViewModel,
     detailsScreenViewModel: DetailsScreenViewModel,
+    mainViewModel: MainViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val favoriteRecipes by mainViewModel.favoriteRecipes.collectAsState()
+
     NavHost(
         navController = navController,
         startDestination = AppDestinations.Home.route,
@@ -50,7 +56,12 @@ fun FoodRecipesNavHost(
         }
 
         composable(route = AppDestinations.Favorites.route) {
-            FavoritesScreen()
+            RecipeGrid(
+                recipeList = favoriteRecipes,
+                onRecipeClick = { id ->
+                    navController.navigate(AppDestinations.Details.createRoute(id))
+                }
+            )
         }
 
         composable(
@@ -64,7 +75,16 @@ fun FoodRecipesNavHost(
             }
 
             DetailsScreenHandLer(
-                uiState = detailsScreenViewModel.detailsScreenUiState
+                uiState = detailsScreenViewModel.detailsScreenUiState,
+                isFavorite = {
+                    mainViewModel.isFavorite(it)
+                },
+                onRemoveFavorite = {
+                    detailsScreenViewModel.deleteRecipeFromFavorites(it)
+                },
+                onAddFavorite = {
+                    detailsScreenViewModel.addRecipeToFavorites(it)
+                }
             )
         }
     }

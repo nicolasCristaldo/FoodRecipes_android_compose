@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.engage.core)
     val lifecycleVersion = "2.8.7"
     val retrofitVersion = "2.9.0"
     val hiltVersion = "2.51"
@@ -89,6 +90,9 @@ dependencies {
     // Okhttp
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
 
+    //Room
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     testImplementation(libs.junit)
 
