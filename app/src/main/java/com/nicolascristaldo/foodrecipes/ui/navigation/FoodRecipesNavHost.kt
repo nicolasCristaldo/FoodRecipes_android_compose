@@ -15,7 +15,7 @@ import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenViewMode
 import com.nicolascristaldo.foodrecipes.ui.MainViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
-import com.nicolascristaldo.foodrecipes.ui.screens.home.RecipeGrid
+import com.nicolascristaldo.foodrecipes.ui.screens.list.RecipeListScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomStateHandler
 
@@ -56,7 +56,7 @@ fun FoodRecipesNavHost(
         }
 
         composable(route = AppDestinations.Favorites.route) {
-            RecipeGrid(
+            RecipeListScreen(
                 recipeList = favoriteRecipes,
                 onRecipeClick = { id ->
                     navController.navigate(AppDestinations.Details.createRoute(id))

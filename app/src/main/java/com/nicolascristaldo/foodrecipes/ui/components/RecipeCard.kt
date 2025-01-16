@@ -28,7 +28,6 @@ fun RecipeCard(
                 contentDescription = recipePreview.name,
             )
             Text(text = "name: ${recipePreview.name}")
-            Text(text = "id: ${recipePreview.id}")
         }
     }
 }
