@@ -9,6 +9,6 @@ class GetFilterAttributesUseCase @Inject constructor(
 ) {
     suspend operator fun invoke() = FilterAttributes(
         categories = repository.getCategories(),
-        areas = repository.getAreas()
+        areas = repository.getAreas().filter { area -> area != "Unknown" }
     )
 }

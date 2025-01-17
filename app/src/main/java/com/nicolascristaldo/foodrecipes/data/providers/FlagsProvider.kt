@@ -2,7 +2,7 @@ package com.nicolascristaldo.foodrecipes.data.providers
 
 import com.nicolascristaldo.foodrecipes.R
 
-class FlagsProvider {
+object FlagsProvider {
     fun getFlagByArea(area: String): Int {
         return when(area) {
             "American" -> R.drawable.usa_flag
@@ -32,8 +32,7 @@ class FlagsProvider {
             "Jamaican" -> R.drawable.jamaica_flag
             "Turkish" -> R.drawable.turkey_flag
             "Thai" -> R.drawable.thailand_flag
-            "Irish" -> R.drawable.ireland_flag
-            else -> 0
+            else -> R.drawable.ireland_flag
         }
     }
 }

@@ -2,6 +2,8 @@ package com.nicolascristaldo.foodrecipes.ui.screens.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -52,27 +54,26 @@ fun HomeScreen(
         modifier = modifier
     ) {
         HomeSection(
-            title = "Areas",
-            content = {
-                AreasGrid(
-                    areas = filterAttributes.areas,
-                    filterRecipes = filterRecipes
-                )
-            },
-            modifier = Modifier.height(100.dp)
-        )
-        HorizontalDivider()
-        HomeSection(
             title = "Categories",
             content = {
                 CategoriesRow(
                     categories = filterAttributes.categories,
                     filterRecipes = filterRecipes
                 )
-            },
-            modifier = Modifier.height(100.dp)
+            }
         )
-        HorizontalDivider()
+
+        HomeSection(
+            title = "Areas",
+            content = {
+                AreasGrid(
+                    areas = filterAttributes.areas,
+                    filterRecipes = filterRecipes,
+                    modifier = Modifier.height(160.dp)
+                )
+            }
+        )
+
         when(state) {
             is SearchUiState.Success -> {
                 RecipeListScreen(
@@ -97,8 +98,14 @@ fun HomeSection(
     Column(
         modifier = modifier
     ) {
-        Text(text = title)
+        Text(
+            text = title,
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .paddingFromBaseline(top = 30.dp, bottom = 8.dp)
+        )
         content()
+        HorizontalDivider()
     }
 }
 
