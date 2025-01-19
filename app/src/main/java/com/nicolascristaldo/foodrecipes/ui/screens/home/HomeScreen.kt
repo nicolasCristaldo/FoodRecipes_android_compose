@@ -1,28 +1,32 @@
 package com.nicolascristaldo.foodrecipes.ui.screens.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.filter.FilterAttributes
+import com.nicolascristaldo.foodrecipes.ui.components.ErrorMessageScreen
+import com.nicolascristaldo.foodrecipes.ui.components.LoadingScreen
+import com.nicolascristaldo.foodrecipes.ui.components.MessageScreen
+import com.nicolascristaldo.foodrecipes.ui.components.RecipeListScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.home.components.AreasGrid
 import com.nicolascristaldo.foodrecipes.ui.screens.home.components.CategoriesRow
-import com.nicolascristaldo.foodrecipes.ui.screens.list.RecipeListScreen
+import com.nicolascristaldo.foodrecipes.ui.screens.home.components.HomeSection
 
 @Composable
 fun HomeStateHandler(
     uiState: HomeUiState,
     filterRecipes: (String?, String?, String?) -> Unit,
     onRecipeClick: (String) -> Unit,
+    retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when(uiState) {
+    when (uiState) {
         is HomeUiState.Success -> {
             HomeScreen(
                 state = uiState.searchUiState,
@@ -31,12 +35,16 @@ fun HomeStateHandler(
                 onRecipeClick = onRecipeClick
             )
         }
+
         HomeUiState.Loading -> {
-            CircularProgressIndicator()
+            LoadingScreen()
         }
-        is HomeUiState.Error -> {
-            Text(
-                text = "Error"
+
+        HomeUiState.Error -> {
+            ErrorMessageScreen(
+                message = "Error loading recipe",
+                onClick = { retryAction() },
+                modifier = modifier
             )
         }
     }
@@ -74,40 +82,38 @@ fun HomeScreen(
             }
         )
 
-        when(state) {
+        when (state) {
             is SearchUiState.Success -> {
-                RecipeListScreen(
-                    recipeList = state.recipePreviewList?.recipes,
-                    onRecipeClick = onRecipeClick
+                if(state.recipePreviewList?.recipes.isNullOrEmpty()) {
+                    MessageScreen(
+                        message = "No recipes found",
+                        icon = R.drawable.ic_search
+                    )
+                }
+                else {
+                    RecipeListScreen(
+                        recipeList = state.recipePreviewList?.recipes,
+                        onRecipeClick = onRecipeClick
+                    )
+                }
+            }
+
+            SearchUiState.Loading -> {
+                LoadingScreen()
+            }
+
+            SearchUiState.Error -> {
+                Text(
+                    text = "Error loading recipes",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxSize()
                 )
             }
-            is SearchUiState.Error -> {
-                Text(text = "Error")
-            }
-            SearchUiState.Loading -> { CircularProgressIndicator() }
         }
     }
 }
 
-@Composable
-fun HomeSection(
-    title: String,
-    content: @Composable () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-    ) {
-        Text(
-            text = title,
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .paddingFromBaseline(top = 30.dp, bottom = 8.dp)
-        )
-        content()
-        HorizontalDivider()
-    }
-}
+
 
 
 

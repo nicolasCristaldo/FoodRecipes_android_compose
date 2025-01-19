@@ -5,12 +5,9 @@ import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
 sealed interface RandomScreenUiState {
     data class Success(
         val recipePreview: RecipePreview?
-    ): RandomScreenUiState
+    ) : RandomScreenUiState
 
-    data class Error(
-        val internetError: Boolean = false,
-        val httpError: Boolean = false
-    ): RandomScreenUiState
+    data object Error : RandomScreenUiState
 
-    data object Loading: RandomScreenUiState
+    data object Loading : RandomScreenUiState
 }

@@ -9,10 +9,7 @@ sealed interface HomeUiState {
         val filterAttributes: FilterAttributes
     ): HomeUiState
 
-    data class Error(
-        val internetError: Boolean = false,
-        val httpError: Boolean = false
-    ): HomeUiState
+    data object Error: HomeUiState
 
     data object Loading: HomeUiState
 }
@@ -22,10 +19,7 @@ sealed interface SearchUiState {
         val recipePreviewList: RecipePreviewList? = null
     ): SearchUiState
 
-    data class Error(
-        val internetError: Boolean = false,
-        val httpError: Boolean = false
-    ): SearchUiState
+    data object Error: SearchUiState
 
     data object Loading: SearchUiState
 }

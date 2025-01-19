@@ -1,5 +1,6 @@
 package com.nicolascristaldo.foodrecipes.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,12 +11,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenHandLer
 import com.nicolascristaldo.foodrecipes.ui.screens.details.DetailsScreenViewModel
 import com.nicolascristaldo.foodrecipes.ui.MainViewModel
+import com.nicolascristaldo.foodrecipes.ui.components.MessageScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeStateHandler
 import com.nicolascristaldo.foodrecipes.ui.screens.home.HomeViewModel
-import com.nicolascristaldo.foodrecipes.ui.screens.list.RecipeListScreen
+import com.nicolascristaldo.foodrecipes.ui.components.RecipeListScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomScreenViewModel
 import com.nicolascristaldo.foodrecipes.ui.screens.random.RandomStateHandler
 
@@ -41,7 +44,8 @@ fun FoodRecipesNavHost(
                 filterRecipes = homeViewModel::getRecipesByCriteria,
                 onRecipeClick = { id ->
                     navController.navigate(AppDestinations.Details.createRoute(id))
-                }
+                },
+                retryAction = homeViewModel::getFilterAttributes
             )
         }
 
@@ -51,17 +55,27 @@ fun FoodRecipesNavHost(
                 onButtonClick = randomScreenViewModel::getRandomRecipe,
                 onRecipeClick = { id ->
                     navController.navigate(AppDestinations.Details.createRoute(id))
-                }
+                },
+                retryAction = randomScreenViewModel::getRandomRecipe,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         composable(route = AppDestinations.Favorites.route) {
-            RecipeListScreen(
-                recipeList = favoriteRecipes,
-                onRecipeClick = { id ->
-                    navController.navigate(AppDestinations.Details.createRoute(id))
-                }
-            )
+            if (favoriteRecipes.isEmpty()) {
+                MessageScreen(
+                    message = "There are no saved recipes. Add favorite recipes to view them here",
+                    icon = R.drawable.ic_add_favorite
+                )
+            }
+            else {
+                RecipeListScreen(
+                    recipeList = favoriteRecipes,
+                    onRecipeClick = { id ->
+                        navController.navigate(AppDestinations.Details.createRoute(id))
+                    }
+                )
+            }
         }
 
         composable(
@@ -84,7 +98,8 @@ fun FoodRecipesNavHost(
                 },
                 onAddFavorite = {
                     detailsScreenViewModel.addRecipeToFavorites(it)
-                }
+                },
+                retryAction = { detailsScreenViewModel.getRecipeById(id!!) }
             )
         }
     }

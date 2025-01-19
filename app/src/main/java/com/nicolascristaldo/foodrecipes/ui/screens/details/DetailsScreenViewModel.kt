@@ -29,10 +29,7 @@ class DetailsScreenViewModel @Inject constructor(
                 DetailsScreenUiState.Success(getRecipeByIdUseCase(id))
             }
             catch(e: Exception) {
-                DetailsScreenUiState.Error(
-                    internetError = e is IOException,
-                    httpError = e is HttpException
-                )
+                DetailsScreenUiState.Error
             }
         }
     }

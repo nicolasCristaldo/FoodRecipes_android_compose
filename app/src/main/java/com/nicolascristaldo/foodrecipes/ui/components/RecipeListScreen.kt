@@ -1,6 +1,8 @@
-package com.nicolascristaldo.foodrecipes.ui.screens.list
+package com.nicolascristaldo.foodrecipes.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -8,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
-import com.nicolascristaldo.foodrecipes.ui.components.RecipeCard
 
 @Composable
 fun RecipeListScreen(
@@ -17,13 +18,17 @@ fun RecipeListScreen(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(minSize = 140.dp),
         contentPadding = PaddingValues(8.dp),
+        modifier = modifier
     ) {
         items(recipeList ?: emptyList()) { recipe ->
             RecipeCard(
                 recipePreview = recipe,
-                onClick = onRecipeClick
+                onClick = onRecipeClick,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .aspectRatio(0.7f)
             )
         }
     }

@@ -8,16 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.nicolascristaldo.foodrecipes.domain.GetRandomRecipeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class RandomScreenViewModel @Inject constructor(
     private val getRandomRecipeUseCase: GetRandomRecipeUseCase
-): ViewModel() {
+) : ViewModel() {
     var randomScreenUiState: RandomScreenUiState by mutableStateOf(RandomScreenUiState.Loading)
-    private set
+        private set
 
     init {
         getRandomRecipe()
@@ -28,12 +26,8 @@ class RandomScreenViewModel @Inject constructor(
             randomScreenUiState = RandomScreenUiState.Loading
             randomScreenUiState = try {
                 RandomScreenUiState.Success(getRandomRecipeUseCase())
-            }
-            catch(e: Exception) {
-                RandomScreenUiState.Error(
-                    internetError = e is IOException,
-                    httpError = e is HttpException
-                )
+            } catch (e: Exception) {
+                RandomScreenUiState.Error
             }
         }
     }

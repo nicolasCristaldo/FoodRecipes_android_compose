@@ -11,8 +11,6 @@ import com.nicolascristaldo.foodrecipes.domain.model.filter.FilterAttributes
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +24,10 @@ class HomeViewModel @Inject constructor(
         private set
 
     init {
+        getFilterAttributes()
+    }
+
+    fun getFilterAttributes() {
         viewModelScope.launch {
             try {
                 filterAttributes = getFilterAttributesUseCase()
@@ -33,10 +35,7 @@ class HomeViewModel @Inject constructor(
                     filterAttributes = filterAttributes
                 )
             } catch (e: Exception) {
-                homeUiState = HomeUiState.Error(
-                    internetError = e is IOException,
-                    httpError = e is HttpException
-                )
+                homeUiState = HomeUiState.Error
             }
         }
     }
@@ -47,7 +46,7 @@ class HomeViewModel @Inject constructor(
         category: String? = null
     ) {
         viewModelScope.launch {
-            updateRecipes {
+             updateRecipes {
                 getRecipesByCriteriaUseCase(
                     name = name,
                     area = area,
@@ -66,10 +65,7 @@ class HomeViewModel @Inject constructor(
         val searchState = try {
             SearchUiState.Success(recipePreviewList = getRecipes())
         } catch (e: Exception) {
-            SearchUiState.Error(
-                internetError = e is IOException,
-                httpError = e is HttpException
-            )
+            SearchUiState.Error
         }
 
         homeUiState = currentState.copy(searchUiState = searchState)

@@ -7,10 +7,7 @@ sealed interface DetailsScreenUiState {
         val recipe: Recipe?
     ): DetailsScreenUiState
 
-    data class Error(
-        val internetError: Boolean = false,
-        val httpError: Boolean = false
-    ): DetailsScreenUiState
+    data object Error: DetailsScreenUiState
 
     data object Loading: DetailsScreenUiState
 }
