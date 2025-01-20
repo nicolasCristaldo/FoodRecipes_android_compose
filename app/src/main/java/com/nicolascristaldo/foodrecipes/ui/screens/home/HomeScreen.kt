@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.nicolascristaldo.foodrecipes.R
@@ -42,7 +43,7 @@ fun HomeStateHandler(
 
         HomeUiState.Error -> {
             ErrorMessageScreen(
-                message = "Error loading recipe",
+                message = stringResource(id = R.string.error_loading_recipe_text),
                 onClick = { retryAction() },
                 modifier = modifier
             )
@@ -62,7 +63,7 @@ fun HomeScreen(
         modifier = modifier
     ) {
         HomeSection(
-            title = "Categories",
+            title = stringResource(id = R.string.categories_section_title),
             content = {
                 CategoriesRow(
                     categories = filterAttributes.categories,
@@ -72,7 +73,7 @@ fun HomeScreen(
         )
 
         HomeSection(
-            title = "Areas",
+            title = stringResource(id = R.string.areas_section_title),
             content = {
                 AreasGrid(
                     areas = filterAttributes.areas,
@@ -86,7 +87,7 @@ fun HomeScreen(
             is SearchUiState.Success -> {
                 if(state.recipePreviewList?.recipes.isNullOrEmpty()) {
                     MessageScreen(
-                        message = "No recipes found",
+                        message = stringResource(id = R.string.no_recipes_found_text),
                         icon = R.drawable.ic_not_found
                     )
                 }
@@ -100,7 +101,7 @@ fun HomeScreen(
 
             is SearchUiState.Idle -> {
                 MessageScreen(
-                    message = "Search any recipe",
+                    message = stringResource(id = R.string.search_any_recipe_text),
                     icon = R.drawable.ic_search
                 )
             }
@@ -111,7 +112,7 @@ fun HomeScreen(
 
             SearchUiState.Error -> {
                 Text(
-                    text = "Error loading recipes",
+                    text = stringResource(id = R.string.error_loading_recipe_text),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxSize()
                 )

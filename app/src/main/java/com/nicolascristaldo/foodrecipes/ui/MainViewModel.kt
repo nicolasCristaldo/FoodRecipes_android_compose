@@ -15,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     repository: FoodRecipeRepository
-): ViewModel() {
-
+) : ViewModel() {
     private val _favoriteRecipes: StateFlow<List<RecipePreview>> =
         repository.getRecipes()
             .map { entityList -> entityList.map { entity -> entity.toDomain() } }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -64,7 +65,7 @@ fun FoodRecipesNavHost(
         composable(route = AppDestinations.Favorites.route) {
             if (favoriteRecipes.isEmpty()) {
                 MessageScreen(
-                    message = "There are no saved recipes. Add favorite recipes to view them here",
+                    message = stringResource(id = R.string.no_recipes_saved_text),
                     icon = R.drawable.ic_add_favorite
                 )
             }

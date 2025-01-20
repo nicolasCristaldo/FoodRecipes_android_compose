@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.ui.navigation.AppDestinations
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,7 +69,7 @@ fun FoodRecipesTopAppBar(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "back"
+                        contentDescription = stringResource(id = R.string.arrow_back_content_description)
                     )
                 }
             }
@@ -78,7 +79,7 @@ fun FoodRecipesTopAppBar(
                 IconButton(onClick = { isSearchActive = true}) {
                     Icon(
                         imageVector = Icons.Filled.Search,
-                        contentDescription = "search"
+                        contentDescription = stringResource(id = R.string.search_content_description)
                     )
                 }
             }

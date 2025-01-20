@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -31,6 +32,9 @@ import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
 import com.nicolascristaldo.foodrecipes.ui.components.ErrorMessageScreen
 import com.nicolascristaldo.foodrecipes.ui.components.LoadingScreen
 import com.nicolascristaldo.foodrecipes.ui.components.MessageScreen
+import com.nicolascristaldo.foodrecipes.ui.screens.details.components.DetailSection
+import com.nicolascristaldo.foodrecipes.ui.screens.details.components.DetailsFab
+import com.nicolascristaldo.foodrecipes.ui.screens.details.components.DetailsTitleSection
 import com.nicolascristaldo.foodrecipes.ui.screens.details.components.IngredientsColumn
 
 @Composable
@@ -53,7 +57,7 @@ fun DetailsScreenHandLer(
                 )
             } else {
                 MessageScreen(
-                    message = "no recipe found",
+                    message = stringResource(id = R.string.no_recipe_found_text),
                     icon = R.drawable.ic_not_found
                 )
             }
@@ -61,7 +65,7 @@ fun DetailsScreenHandLer(
         DetailsScreenUiState.Loading -> { LoadingScreen() }
         DetailsScreenUiState.Error -> {
             ErrorMessageScreen(
-                message = "Error loading recipe",
+                message = stringResource(id = R.string.error_loading_recipe_text),
                 onClick = { retryAction() }
             )
         }
@@ -96,46 +100,46 @@ fun DetailsScreen(
                     .height(350.dp)
                     .fillMaxWidth()
             )
-            Text(
-                text = recipe.name,
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center,
+            DetailsTitleSection(
+                title = recipe.name,
+                category = recipe.category,
                 modifier = Modifier.padding(top = 12.dp)
             )
-            Text(
-                text = "(${recipe.category})",
-                style = MaterialTheme.typography.labelMedium,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = recipe.instructions,
-                style = MaterialTheme.typography.bodyLarge,
+            DetailSection(
+                title = stringResource(id = R.string.instructions_section_title),
+                content = {
+                    Text(
+                        text = recipe.instructions,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                },
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(horizontal = 12.dp, vertical = 18.dp)
                     .fillMaxWidth()
             )
-            IngredientsColumn(
-                ingredients = recipe.ingredients,
-                modifier = Modifier.padding(32.dp)
+            DetailSection(
+                title = stringResource(id = R.string.ingredients_section_title),
+                content = {
+                    IngredientsColumn(
+                        ingredients = recipe.ingredients,
+                        modifier = Modifier.padding(20.dp)
+                    )
+                },
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth()
             )
         }
-        FloatingActionButton(
+        DetailsFab(
+            isFavoriteRecipe = isFavoriteRecipe,
             onClick = {
                 onClick(recipe)
                 isFavoriteRecipe = !isFavoriteRecipe
             },
-            containerColor = MaterialTheme.colorScheme.tertiary,
-            contentColor = MaterialTheme.colorScheme.onTertiary,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(12.dp)
-        ) {
-            Icon(
-                imageVector = if (isFavoriteRecipe) Icons.Filled.Favorite
-                else Icons.Outlined.FavoriteBorder,
-                contentDescription = null
-            )
-        }
+        )
     }
 }
 

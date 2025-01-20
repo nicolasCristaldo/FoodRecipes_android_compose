@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
 import com.nicolascristaldo.foodrecipes.ui.components.ErrorMessageScreen
 import com.nicolascristaldo.foodrecipes.ui.components.LoadingScreen
@@ -38,7 +40,7 @@ fun RandomStateHandler(
         RandomScreenUiState.Loading -> { LoadingScreen() }
         RandomScreenUiState.Error -> {
             ErrorMessageScreen(
-                message = "Error loading recipe",
+                message = stringResource(id = R.string.error_loading_recipe_text),
                 onClick = { retryAction() },
                 modifier = modifier
             )
@@ -71,7 +73,7 @@ fun RandomScreen(
         }
         Button(onClick = { onClick() }) {
             Text(
-                text = "discover a new recipe!",
+                text = stringResource(id = R.string.discover_recipe_text),
                 style = MaterialTheme.typography.labelLarge,
                 modifier = Modifier.padding(8.dp)
             )

@@ -1,5 +1,6 @@
 package com.nicolascristaldo.foodrecipes.ui.screens.home.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -51,7 +52,7 @@ fun HomeSection(
                 contentDescription = null
             )
         }
-        if (isExpanded) content()
+        AnimatedVisibility(isExpanded) { content() }
         HorizontalDivider()
     }
 }

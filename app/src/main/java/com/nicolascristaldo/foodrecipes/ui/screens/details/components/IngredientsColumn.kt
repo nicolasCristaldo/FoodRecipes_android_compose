@@ -11,9 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.Ingredient
 
 @Composable
@@ -25,8 +26,8 @@ fun IngredientsColumn(
         modifier = modifier
     ) {
         IngredientItem(
-            ingredient = "Ingredient",
-            measure = "Measure",
+            ingredient = stringResource(id = R.string.ingredient_item_text),
+            measure = stringResource(id = R.string.measure_item_text),
             text = {
                 Text(
                     text = it,

@@ -1,6 +1,31 @@
 <resources>
+    <!-- Screens -->
     <string name="app_name">Food Recipes</string>
     <string name="details_screen_name">Recipe Details</string>
     <string name="random_screen_name">Random Recipes</string>
     <string name="favorites_screen_name">Favorite Recipes</string>
+
+    <!-- Messages -->
+    <string name="no_recipes_saved_text">There are no saved recipes.\n
+        Add favorite recipes to view them here</string>
+    <string name="no_recipe_found_text">No recipe found</string>
+    <string name="no_recipes_found_text">No recipes found</string>
+    <string name="error_loading_recipe_text">Error loading recipe</string>
+    <string name="search_any_recipe_text">Search any recipe!</string>
+
+    <!-- Buttons -->
+    <string name="retry_button_text">Retry</string>
+    <string name="discover_recipe_text">Discover a new recipe!</string>
+
+    <!-- Others -->
+    <string name="areas_section_title">Areas</string>
+    <string name="categories_section_title">Categories</string>
+    <string name="ingredient_item_text">Ingredient</string>
+    <string name="measure_item_text">Measure</string>
+    <string name="search_text_field_placeholder_text">Search</string>
+    <string name="arrow_back_content_description">Back</string>
+    <string name="search_content_description">Search</string>
+    <string name="details_category_text">(%s)</string>
+    <string name="instructions_section_title">Instructions</string>
+    <string name="ingredients_section_title">Ingredients</string>
 </resources>
