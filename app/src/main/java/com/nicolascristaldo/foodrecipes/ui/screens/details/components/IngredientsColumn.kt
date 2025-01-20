@@ -31,7 +31,7 @@ fun IngredientsColumn(
                 Text(
                     text = it,
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
                         .weight(1f)
@@ -49,6 +49,7 @@ fun IngredientsColumn(
                 text = {
                     Text(
                         text = it,
+                        style = MaterialTheme.typography.labelMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier

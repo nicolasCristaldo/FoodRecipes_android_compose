@@ -1,14 +1,11 @@
 package com.nicolascristaldo.foodrecipes.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,10 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun SearchTextField(
@@ -42,7 +37,12 @@ fun SearchTextField(
         onValueChange = { query = it },
         maxLines = 1,
         singleLine = true,
-        placeholder = { Text(text = "Search") },
+        placeholder = {
+            Text(
+                text = "Search",
+                style = MaterialTheme.typography.labelMedium
+            )
+        },
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { onSearch(query) }),
         shape = RoundedCornerShape(50.dp),
@@ -52,7 +52,7 @@ fun SearchTextField(
             focusedContainerColor = MaterialTheme.colorScheme.onSecondary,
             unfocusedContainerColor = MaterialTheme.colorScheme.onSecondary
         ),
-        textStyle = TextStyle(fontSize = 16.sp),
+        textStyle = MaterialTheme.typography.labelMedium,
         modifier = modifier.focusRequester(focusRequester)
     )
 }

@@ -5,7 +5,7 @@ import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreviewList
 
 sealed interface HomeUiState {
     data class Success(
-        val searchUiState: SearchUiState = SearchUiState.Success(recipePreviewList = null),
+        val searchUiState: SearchUiState = SearchUiState.Idle,
         val filterAttributes: FilterAttributes
     ): HomeUiState
 
@@ -18,6 +18,8 @@ sealed interface SearchUiState {
     data class Success(
         val recipePreviewList: RecipePreviewList? = null
     ): SearchUiState
+
+    data object Idle: SearchUiState
 
     data object Error: SearchUiState
 

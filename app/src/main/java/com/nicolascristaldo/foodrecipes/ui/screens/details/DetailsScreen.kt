@@ -11,7 +11,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,9 +26,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
 import com.nicolascristaldo.foodrecipes.ui.components.ErrorMessageScreen
 import com.nicolascristaldo.foodrecipes.ui.components.LoadingScreen
+import com.nicolascristaldo.foodrecipes.ui.components.MessageScreen
 import com.nicolascristaldo.foodrecipes.ui.screens.details.components.IngredientsColumn
 
 @Composable
@@ -51,8 +52,9 @@ fun DetailsScreenHandLer(
                     onRemoveFavorite = onRemoveFavorite
                 )
             } else {
-                Text(
-                    text = "Recipe not found"
+                MessageScreen(
+                    message = "no recipe found",
+                    icon = R.drawable.ic_not_found
                 )
             }
         }
@@ -96,15 +98,18 @@ fun DetailsScreen(
             )
             Text(
                 text = recipe.name,
+                style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(top = 12.dp)
             )
             Text(
                 text = "(${recipe.category})",
+                style = MaterialTheme.typography.labelMedium,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = recipe.instructions,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier
                     .padding(12.dp)
                     .fillMaxWidth()

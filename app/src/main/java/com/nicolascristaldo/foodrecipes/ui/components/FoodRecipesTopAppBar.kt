@@ -46,7 +46,10 @@ fun FoodRecipesTopAppBar(
                 )
             }
             else {
-                Text(text = stringResource(id = currentScreen.titleRes))
+                Text(
+                    text = stringResource(id = currentScreen.titleRes),
+                    style = MaterialTheme.typography.headlineLarge
+                )
             }
         },
         navigationIcon = {

@@ -87,7 +87,7 @@ fun HomeScreen(
                 if(state.recipePreviewList?.recipes.isNullOrEmpty()) {
                     MessageScreen(
                         message = "No recipes found",
-                        icon = R.drawable.ic_search
+                        icon = R.drawable.ic_not_found
                     )
                 }
                 else {
@@ -96,6 +96,13 @@ fun HomeScreen(
                         onRecipeClick = onRecipeClick
                     )
                 }
+            }
+
+            is SearchUiState.Idle -> {
+                MessageScreen(
+                    message = "Search any recipe",
+                    icon = R.drawable.ic_search
+                )
             }
 
             SearchUiState.Loading -> {
