@@ -28,7 +28,7 @@ fun RandomStateHandler(
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    when(uiState) {
+    when (uiState) {
         is RandomScreenUiState.Success -> {
             RandomScreen(
                 recipePreview = uiState.recipePreview,
@@ -37,7 +37,11 @@ fun RandomStateHandler(
                 modifier = modifier
             )
         }
-        RandomScreenUiState.Loading -> { LoadingScreen() }
+
+        RandomScreenUiState.Loading -> {
+            LoadingScreen()
+        }
+
         RandomScreenUiState.Error -> {
             ErrorMessageScreen(
                 message = stringResource(id = R.string.error_loading_recipe_text),
@@ -60,7 +64,7 @@ fun RandomScreen(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        if(recipePreview != null) {
+        if (recipePreview != null) {
             RecipeCard(
                 recipePreview = recipePreview,
                 onClick = onRecipeClick,

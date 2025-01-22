@@ -68,8 +68,7 @@ fun FoodRecipesNavHost(
                     message = stringResource(id = R.string.no_recipes_saved_text),
                     icon = R.drawable.ic_add_favorite
                 )
-            }
-            else {
+            } else {
                 RecipeListScreen(
                     recipeList = favoriteRecipes,
                     onRecipeClick = { id ->

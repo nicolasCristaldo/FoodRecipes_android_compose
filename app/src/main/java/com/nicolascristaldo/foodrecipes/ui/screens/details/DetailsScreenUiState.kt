@@ -5,9 +5,9 @@ import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
 sealed interface DetailsScreenUiState {
     data class Success(
         val recipe: Recipe?
-    ): DetailsScreenUiState
+    ) : DetailsScreenUiState
 
-    data object Error: DetailsScreenUiState
+    data object Error : DetailsScreenUiState
 
-    data object Loading: DetailsScreenUiState
+    data object Loading : DetailsScreenUiState
 }

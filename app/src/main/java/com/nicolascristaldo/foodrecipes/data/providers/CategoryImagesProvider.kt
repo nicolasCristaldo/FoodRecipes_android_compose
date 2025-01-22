@@ -4,7 +4,7 @@ import com.nicolascristaldo.foodrecipes.R
 
 object CategoryImagesProvider {
     fun getImageByCategory(category: String): Int {
-        return when(category) {
+        return when (category) {
             "Beef" -> R.drawable.beef
             "Chicken" -> R.drawable.chicken
             "Dessert" -> R.drawable.dessert

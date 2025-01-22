@@ -4,7 +4,7 @@ import com.nicolascristaldo.foodrecipes.R
 
 object FlagsProvider {
     fun getFlagByArea(area: String): Int {
-        return when(area) {
+        return when (area) {
             "American" -> R.drawable.usa_flag
             "British" -> R.drawable.gb_flag
             "Canadian" -> R.drawable.canada_flag

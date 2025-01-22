@@ -35,7 +35,7 @@ fun FoodRecipesTopAppBar(
 
     CenterAlignedTopAppBar(
         title = {
-            if(isSearchActive && currentScreen is AppDestinations.Home) {
+            if (isSearchActive && currentScreen is AppDestinations.Home) {
                 SearchTextField(
                     onSearch = {
                         onSearch(it)
@@ -45,8 +45,7 @@ fun FoodRecipesTopAppBar(
                         .height(55.dp)
                         .width(270.dp)
                 )
-            }
-            else {
+            } else {
                 Text(
                     text = stringResource(id = currentScreen.titleRes),
                     style = MaterialTheme.typography.headlineLarge
@@ -59,10 +58,9 @@ fun FoodRecipesTopAppBar(
             ) {
                 IconButton(
                     onClick = {
-                        if(currentScreen is AppDestinations.Details) {
+                        if (currentScreen is AppDestinations.Details) {
                             navigateUp()
-                        }
-                        else {
+                        } else {
                             isSearchActive = false
                         }
                     }
@@ -76,7 +74,7 @@ fun FoodRecipesTopAppBar(
         },
         actions = {
             if (currentScreen is AppDestinations.Home && !isSearchActive) {
-                IconButton(onClick = { isSearchActive = true}) {
+                IconButton(onClick = { isSearchActive = true }) {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = stringResource(id = R.string.search_content_description)

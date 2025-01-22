@@ -103,4 +103,13 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //mockk
+    testImplementation("io.mockk:mockk:1.12.2")
+
+    //coroutines test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+
+    //core testing
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
 }

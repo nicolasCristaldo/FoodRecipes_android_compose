@@ -40,10 +40,10 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(json.asConverterFactory(JSON_CONTENT_TYPE.toMediaType()))
-            .build()
+        .baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(json.asConverterFactory(JSON_CONTENT_TYPE.toMediaType()))
+        .build()
 
     @Singleton
     @Provides

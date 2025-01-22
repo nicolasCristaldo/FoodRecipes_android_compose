@@ -7,21 +7,21 @@ sealed interface HomeUiState {
     data class Success(
         val searchUiState: SearchUiState = SearchUiState.Idle,
         val filterAttributes: FilterAttributes
-    ): HomeUiState
+    ) : HomeUiState
 
-    data object Error: HomeUiState
+    data object Error : HomeUiState
 
-    data object Loading: HomeUiState
+    data object Loading : HomeUiState
 }
 
 sealed interface SearchUiState {
     data class Success(
         val recipePreviewList: RecipePreviewList? = null
-    ): SearchUiState
+    ) : SearchUiState
 
-    data object Idle: SearchUiState
+    data object Idle : SearchUiState
 
-    data object Error: SearchUiState
+    data object Error : SearchUiState
 
-    data object Loading: SearchUiState
+    data object Loading : SearchUiState
 }

@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
         category: String? = null
     ) {
         viewModelScope.launch {
-             updateRecipes {
+            updateRecipes {
                 getRecipesByCriteriaUseCase(
                     name = name,
                     area = area,

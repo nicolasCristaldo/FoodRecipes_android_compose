@@ -56,7 +56,11 @@ fun DetailsScreenHandLer(
                 )
             }
         }
-        DetailsScreenUiState.Loading -> { LoadingScreen() }
+
+        DetailsScreenUiState.Loading -> {
+            LoadingScreen()
+        }
+
         DetailsScreenUiState.Error -> {
             ErrorMessageScreen(
                 message = stringResource(id = R.string.error_loading_recipe_text),
@@ -75,7 +79,7 @@ fun DetailsScreen(
     modifier: Modifier = Modifier,
 ) {
     var isFavoriteRecipe by remember { mutableStateOf(isFavorite(recipe.id)) }
-    val onClick: (Recipe) -> Unit = if(isFavoriteRecipe) onRemoveFavorite else onAddFavorite
+    val onClick: (Recipe) -> Unit = if (isFavoriteRecipe) onRemoveFavorite else onAddFavorite
 
     Box(
         modifier = modifier

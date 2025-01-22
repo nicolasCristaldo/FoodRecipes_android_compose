@@ -66,7 +66,8 @@ fun AreaCard(
             )
             Text(
                 text = name,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.outline,
                 modifier = Modifier.align(Alignment.Center)
             )
         }

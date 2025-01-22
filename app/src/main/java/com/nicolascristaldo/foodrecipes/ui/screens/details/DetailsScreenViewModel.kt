@@ -10,25 +10,22 @@ import com.nicolascristaldo.foodrecipes.domain.GetRecipeByIdUseCase
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsScreenViewModel @Inject constructor(
     private val getRecipeByIdUseCase: GetRecipeByIdUseCase,
     private val repository: FoodRecipeRepository
-): ViewModel() {
+) : ViewModel() {
     var detailsScreenUiState: DetailsScreenUiState by mutableStateOf(DetailsScreenUiState.Loading)
-    private set
+        private set
 
     fun getRecipeById(id: String) {
         viewModelScope.launch {
             detailsScreenUiState = DetailsScreenUiState.Loading
             detailsScreenUiState = try {
                 DetailsScreenUiState.Success(getRecipeByIdUseCase(id))
-            }
-            catch(e: Exception) {
+            } catch (e: Exception) {
                 DetailsScreenUiState.Error
             }
         }

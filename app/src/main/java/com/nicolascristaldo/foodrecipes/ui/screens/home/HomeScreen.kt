@@ -85,13 +85,12 @@ fun HomeScreen(
 
         when (state) {
             is SearchUiState.Success -> {
-                if(state.recipePreviewList?.recipes.isNullOrEmpty()) {
+                if (state.recipePreviewList?.recipes.isNullOrEmpty()) {
                     MessageScreen(
                         message = stringResource(id = R.string.no_recipes_found_text),
                         icon = R.drawable.ic_not_found
                     )
-                }
-                else {
+                } else {
                     RecipeListScreen(
                         recipeList = state.recipePreviewList?.recipes,
                         onRecipeClick = onRecipeClick
