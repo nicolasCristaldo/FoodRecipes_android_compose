@@ -11,9 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.Ingredient
 
@@ -36,7 +36,7 @@ fun IngredientsColumn(
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(16.dp)
+                        .padding(dimensionResource(id = R.dimen.padding_large))
                 )
             },
             modifier = Modifier
@@ -55,7 +55,7 @@ fun IngredientsColumn(
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier
                             .weight(1f)
-                            .padding(8.dp)
+                            .padding(dimensionResource(id = R.dimen.padding_small))
                     )
                 },
                 modifier = Modifier
@@ -81,7 +81,7 @@ fun IngredientItem(
         text(measure)
     }
     HorizontalDivider(
-        thickness = 2.dp,
+        thickness = dimensionResource(id = R.dimen.divider_thickness),
         modifier = Modifier.background(MaterialTheme.colorScheme.onPrimaryContainer)
     )
 }

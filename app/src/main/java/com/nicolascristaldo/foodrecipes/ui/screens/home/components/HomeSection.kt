@@ -21,7 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import com.nicolascristaldo.foodrecipes.R
 
 @Composable
 fun HomeSection(
@@ -36,16 +37,16 @@ fun HomeSection(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(vertical = 8.dp)
+                .padding(vertical = dimensionResource(id = R.dimen.padding_small))
                 .clickable { isExpanded = !isExpanded }
         ) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
-                    .padding(start = 12.dp)
+                    .padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacer_small_size)))
             Icon(
                 imageVector = if (isExpanded) Icons.Filled.KeyboardArrowUp
                 else Icons.Filled.KeyboardArrowDown,

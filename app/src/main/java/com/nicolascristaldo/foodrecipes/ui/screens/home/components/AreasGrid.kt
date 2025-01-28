@@ -16,8 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.data.providers.FlagsProvider
 
 @Composable
@@ -28,9 +29,9 @@ fun AreasGrid(
 ) {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(12.dp),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_medium)),
         modifier = modifier
     ) {
         items(areas) { area ->
@@ -38,7 +39,7 @@ fun AreasGrid(
                 name = area,
                 filterRecipes = filterRecipes,
                 imageRes = FlagsProvider.getFlagByArea(area),
-                modifier = Modifier.width(120.dp)
+                modifier = Modifier.width(dimensionResource(id = R.dimen.area_card_width))
             )
         }
     }

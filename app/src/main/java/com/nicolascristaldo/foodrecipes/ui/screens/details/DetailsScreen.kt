@@ -18,8 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.recipe.Recipe
@@ -95,13 +95,13 @@ fun DetailsScreen(
                 contentDescription = recipe.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(350.dp)
+                    .height(dimensionResource(id = R.dimen.image_height))
                     .fillMaxWidth()
             )
             DetailsTitleSection(
                 title = recipe.name,
                 category = recipe.category,
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_medium))
             )
             DetailSection(
                 title = stringResource(id = R.string.instructions_section_title),
@@ -112,7 +112,10 @@ fun DetailsScreen(
                     )
                 },
                 modifier = Modifier
-                    .padding(horizontal = 12.dp, vertical = 18.dp)
+                    .padding(
+                        horizontal = dimensionResource(id = R.dimen.padding_medium),
+                        vertical = dimensionResource(id = R.dimen.padding_large)
+                    )
                     .fillMaxWidth()
             )
             DetailSection(
@@ -120,11 +123,11 @@ fun DetailsScreen(
                 content = {
                     IngredientsColumn(
                         ingredients = recipe.ingredients,
-                        modifier = Modifier.padding(20.dp)
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_extra_large))
                     )
                 },
                 modifier = Modifier
-                    .padding(horizontal = 12.dp)
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
                     .fillMaxWidth()
             )
         }
@@ -136,7 +139,7 @@ fun DetailsScreen(
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(12.dp)
+                .padding(dimensionResource(id = R.dimen.padding_medium))
         )
     }
 }

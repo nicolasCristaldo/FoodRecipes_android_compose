@@ -7,11 +7,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.ui.components.FoodRecipesBottomNavigationBar
 import com.nicolascristaldo.foodrecipes.ui.components.FoodRecipesTopAppBar
 import com.nicolascristaldo.foodrecipes.ui.navigation.AppDestinations
@@ -48,7 +49,7 @@ fun FoodRecipesApp(
         bottomBar = {
             FoodRecipesBottomNavigationBar(
                 navController = navController,
-                modifier = Modifier.height(115.dp)
+                modifier = Modifier.height(dimensionResource(id = R.dimen.nav_bar_height))
             )
         }
     ) { contentPadding ->

@@ -8,7 +8,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.dimensionResource
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
 
 @Composable
@@ -18,8 +19,8 @@ fun RecipeListScreen(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 140.dp),
-        contentPadding = PaddingValues(8.dp),
+        columns = GridCells.Adaptive(minSize = dimensionResource(id = R.dimen.grid_cell_min_size)),
+        contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_small)),
         modifier = modifier
     ) {
         items(recipeList ?: emptyList()) { recipe ->
@@ -27,7 +28,7 @@ fun RecipeListScreen(
                 recipePreview = recipe,
                 onClick = onRecipeClick,
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(dimensionResource(id = R.dimen.padding_small))
                     .aspectRatio(0.7f)
             )
         }

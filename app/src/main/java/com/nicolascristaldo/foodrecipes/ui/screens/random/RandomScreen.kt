@@ -12,8 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.domain.model.preview.RecipePreview
 import com.nicolascristaldo.foodrecipes.ui.components.ErrorMessageScreen
@@ -69,17 +69,17 @@ fun RandomScreen(
                 recipePreview = recipePreview,
                 onClick = onRecipeClick,
                 modifier = Modifier
-                    .width(300.dp)
-                    .height(372.dp)
+                    .width(dimensionResource(id = R.dimen.random_card_width))
+                    .height(dimensionResource(id = R.dimen.random_card_height))
             )
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacer_large_size)))
 
         }
         Button(onClick = { onClick() }) {
             Text(
                 text = stringResource(id = R.string.discover_recipe_text),
                 style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
     }

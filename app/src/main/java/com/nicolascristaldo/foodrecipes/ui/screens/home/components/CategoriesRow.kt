@@ -15,9 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import com.nicolascristaldo.foodrecipes.R
 import com.nicolascristaldo.foodrecipes.data.providers.CategoryImagesProvider
 
 @Composable
@@ -35,7 +36,7 @@ fun CategoriesRow(
                 imageRes = CategoryImagesProvider.getImageByCategory(category = category),
                 modifier = Modifier
                     .clickable { filterRecipes(null, null, category) }
-                    .padding(horizontal = 8.dp)
+                    .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
         }
     }
@@ -55,7 +56,7 @@ fun CategoryItem(
             painter = painterResource(id = imageRes),
             contentDescription = null,
             modifier = Modifier
-                .size(90.dp)
+                .size(dimensionResource(id = R.dimen.category_item_image_size))
                 .clip(CircleShape)
         )
         Text(
@@ -63,8 +64,8 @@ fun CategoryItem(
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             modifier = Modifier.paddingFromBaseline(
-                top = 18.dp,
-                bottom = 12.dp
+                top = dimensionResource(id = R.dimen.padding_large),
+                bottom = dimensionResource(id = R.dimen.padding_medium)
             )
         )
     }
