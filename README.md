@@ -59,3 +59,11 @@
 - Shows a random recipe with a button to fetch another.
 
 <img src="screens/FoodRecipes_Random.jpeg" width="200"/>
+
+## 📥 Download
+
+You can download the APK from the releases folder:
+
+[Download APK](https://github.com/nicolasCristaldo/FoodRecipes_android_compose/blob/main/app/release/food_recipes.apk)
+
+**Note**: Ensure your device allows installation from unknown sources to install the APK. After clicking the link, select the "Download" button to get the file.
